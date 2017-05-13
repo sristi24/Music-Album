@@ -1,0 +1,22 @@
+{% extends 'music/base.html'%}
+
+{% block body %}
+{% if all_albums %}
+    <h3>Here are the albums</h3>
+    <form action="{% url 'music/album-delete' album.id %}" method="post" style="display:inline;">
+    {% csrf_token %}
+<ul>
+    {% for album in all_albums %}
+    <li><a href="{% url 'music:detail' album.id %}">{{ album.album_title}} </a>
+    <input ype="hidden" name="album_id" value="{{ album.id }}"/>
+    <button type="submit" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-trash"></span>
+    </button>
+    </li>
+    {% endfor %}
+</ul>
+    </form>
+{% else %}
+    <h2>You dont have any albums</h2>
+{% endif %}
+{% endblock %}
